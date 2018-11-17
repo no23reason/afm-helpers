@@ -1,11 +1,11 @@
 import "jest";
+import { AFM } from "@gooddata/typings";
 
 import { SimpleMeasureBuilder } from "../SimpleMeasureBuilder";
-import { AFM } from "@gooddata/typings";
 
 describe("SimpleMeasureBuilder", () => {
     it("creates a simple measure", () => {
-        const builder = SimpleMeasureBuilder.of("foo");
+        const builder = SimpleMeasureBuilder("foo");
         const result = builder.build();
         const expected: AFM.ISimpleMeasureDefinition = {
             measure: {
@@ -20,7 +20,7 @@ describe("SimpleMeasureBuilder", () => {
         expect(result).toEqual(expected);
     });
     it("creates a measure with aggregation", () => {
-        const builder = SimpleMeasureBuilder.of("foo");
+        const builder = SimpleMeasureBuilder("foo");
         const result = builder.withAggregation("avg").build();
         const expected: AFM.ISimpleMeasureDefinition = {
             measure: {
@@ -35,7 +35,7 @@ describe("SimpleMeasureBuilder", () => {
         expect(result).toEqual(expected);
     });
     it("creates a measure with positive attribute filter", () => {
-        const builder = SimpleMeasureBuilder.of("foo");
+        const builder = SimpleMeasureBuilder("foo");
         const result = builder
             .withPositiveAttributeFilter("displayForm", ["bar", "baz"])
             .build();
@@ -61,7 +61,7 @@ describe("SimpleMeasureBuilder", () => {
         expect(result).toEqual(expected);
     });
     it("creates a measure with negative attribute filter", () => {
-        const builder = SimpleMeasureBuilder.of("foo");
+        const builder = SimpleMeasureBuilder("foo");
         const result = builder
             .withNegativeAttributeFilter("displayForm", ["bar", "baz"])
             .build();
@@ -87,7 +87,7 @@ describe("SimpleMeasureBuilder", () => {
         expect(result).toEqual(expected);
     });
     it("creates a measure with absolute date filter", () => {
-        const builder = SimpleMeasureBuilder.of("foo");
+        const builder = SimpleMeasureBuilder("foo");
         const result = builder
             .withAbsoluteDateFilter("displayForm", "2018-10-01", "2018-10-31")
             .build();
@@ -114,7 +114,7 @@ describe("SimpleMeasureBuilder", () => {
         expect(result).toEqual(expected);
     });
     it("creates a measure with relative date filter", () => {
-        const builder = SimpleMeasureBuilder.of("foo");
+        const builder = SimpleMeasureBuilder("foo");
         const result = builder
             .withRelativeDateFilter("displayForm", "granularity", 1, 3)
             .build();
@@ -142,7 +142,7 @@ describe("SimpleMeasureBuilder", () => {
         expect(result).toEqual(expected);
     });
     it("creates a complex measure", () => {
-        const builder = SimpleMeasureBuilder.of("foo");
+        const builder = SimpleMeasureBuilder("foo");
         const result = builder
             .withAggregation("count")
             .withRelativeDateFilter("displayForm", "granularity", 1, 3)
