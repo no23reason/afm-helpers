@@ -3,8 +3,8 @@ import { AFM } from "@gooddata/typings";
 import { getQualifierObject } from "./utils";
 import { withFilters } from "./mixins/withFilters";
 
-export const SimpleMeasureBuilder = (qualifierString: string) => {
-    return withFilters({
+export const SimpleMeasureBuilder = (qualifierString: string) =>
+    withFilters({
         aggregation: undefined,
         withAggregation(aggregation: AFM.SimpleMeasureAggregation) {
             this.aggregation = aggregation;
@@ -26,4 +26,3 @@ export const SimpleMeasureBuilder = (qualifierString: string) => {
             };
         },
     });
-};
