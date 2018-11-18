@@ -5,8 +5,7 @@ import { SimpleMeasureBuilder } from "../SimpleMeasureBuilder";
 
 describe("SimpleMeasureBuilder", () => {
     it("creates a simple measure", () => {
-        const builder = SimpleMeasureBuilder("foo");
-        const result = builder.build();
+        const actual = SimpleMeasureBuilder("foo").build();
         const expected: AFM.ISimpleMeasureDefinition = {
             measure: {
                 aggregation: undefined,
@@ -17,11 +16,12 @@ describe("SimpleMeasureBuilder", () => {
                 },
             },
         };
-        expect(result).toEqual(expected);
+        expect(actual).toEqual(expected);
     });
     it("creates a measure with aggregation", () => {
-        const builder = SimpleMeasureBuilder("foo");
-        const result = builder.withAggregation("avg").build();
+        const actual = SimpleMeasureBuilder("foo")
+            .withAggregation("avg")
+            .build();
         const expected: AFM.ISimpleMeasureDefinition = {
             measure: {
                 aggregation: "avg",
@@ -32,11 +32,10 @@ describe("SimpleMeasureBuilder", () => {
                 },
             },
         };
-        expect(result).toEqual(expected);
+        expect(actual).toEqual(expected);
     });
     it("creates a measure with positive attribute filter", () => {
-        const builder = SimpleMeasureBuilder("foo");
-        const result = builder
+        const actual = SimpleMeasureBuilder("foo")
             .withPositiveAttributeFilter("displayForm", ["bar", "baz"])
             .build();
         const expected: AFM.ISimpleMeasureDefinition = {
@@ -58,11 +57,10 @@ describe("SimpleMeasureBuilder", () => {
                 },
             },
         };
-        expect(result).toEqual(expected);
+        expect(actual).toEqual(expected);
     });
     it("creates a measure with negative attribute filter", () => {
-        const builder = SimpleMeasureBuilder("foo");
-        const result = builder
+        const actual = SimpleMeasureBuilder("foo")
             .withNegativeAttributeFilter("displayForm", ["bar", "baz"])
             .build();
         const expected: AFM.ISimpleMeasureDefinition = {
@@ -84,11 +82,10 @@ describe("SimpleMeasureBuilder", () => {
                 },
             },
         };
-        expect(result).toEqual(expected);
+        expect(actual).toEqual(expected);
     });
     it("creates a measure with absolute date filter", () => {
-        const builder = SimpleMeasureBuilder("foo");
-        const result = builder
+        const actual = SimpleMeasureBuilder("foo")
             .withAbsoluteDateFilter("displayForm", "2018-10-01", "2018-10-31")
             .build();
         const expected: AFM.ISimpleMeasureDefinition = {
@@ -111,11 +108,10 @@ describe("SimpleMeasureBuilder", () => {
                 },
             },
         };
-        expect(result).toEqual(expected);
+        expect(actual).toEqual(expected);
     });
     it("creates a measure with relative date filter", () => {
-        const builder = SimpleMeasureBuilder("foo");
-        const result = builder
+        const actual = SimpleMeasureBuilder("foo")
             .withRelativeDateFilter("displayForm", "granularity", 1, 3)
             .build();
         const expected: AFM.ISimpleMeasureDefinition = {
@@ -139,11 +135,10 @@ describe("SimpleMeasureBuilder", () => {
                 },
             },
         };
-        expect(result).toEqual(expected);
+        expect(actual).toEqual(expected);
     });
     it("creates a complex measure", () => {
-        const builder = SimpleMeasureBuilder("foo");
-        const result = builder
+        const actual = SimpleMeasureBuilder("foo")
             .withAggregation("count")
             .withRelativeDateFilter("displayForm", "granularity", 1, 3)
             .asRatio()
@@ -169,6 +164,6 @@ describe("SimpleMeasureBuilder", () => {
                 },
             },
         };
-        expect(result).toEqual(expected);
+        expect(actual).toEqual(expected);
     });
 });
