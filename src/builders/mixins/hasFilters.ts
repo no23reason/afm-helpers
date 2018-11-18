@@ -2,30 +2,30 @@ import { AFM } from "@gooddata/typings";
 
 import { getQualifierObject } from "../utils";
 
-export interface HasFilters<T> {
+interface HasFilters {
     filters: AFM.FilterItem[];
     withPositiveAttributeFilter: (
         qualifierString: string,
         values: string[],
-    ) => T & HasFilters<T>;
+    ) => this;
     withNegativeAttributeFilter: (
         qualifierString: string,
         values: string[],
-    ) => T & HasFilters<T>;
+    ) => this;
     withAbsoluteDateFilter: (
         qualifierString: string,
         from: string,
         to: string,
-    ) => T & HasFilters<T>;
+    ) => this;
     withRelativeDateFilter: (
         qualifierString: string,
         granularity: string,
         from: number,
         to: number,
-    ) => T & HasFilters<T>;
+    ) => this;
 }
 
-export const withFilters = <T extends object>(o: T): T & HasFilters<T> => ({
+export const hasFilters = <T extends object>(o: T): T & HasFilters => ({
     ...o,
     filters: [],
     withPositiveAttributeFilter(qualifierString, values) {
