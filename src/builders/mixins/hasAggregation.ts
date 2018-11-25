@@ -1,6 +1,6 @@
 import { AFM } from "@gooddata/typings";
 
-interface HasAggregation {
+export interface HasAggregation {
     aggregation?: AFM.SimpleMeasureAggregation;
     withAggregation: (aggregation: AFM.SimpleMeasureAggregation) => this;
 }

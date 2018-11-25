@@ -1,10 +1,18 @@
 import { AFM } from "@gooddata/typings";
 
 import { getQualifierObject } from "./utils";
-import { hasAggregation } from "./mixins/hasAggregation";
-import { hasFilters } from "./mixins/hasFilters";
+import { hasAggregation, HasAggregation } from "./mixins/hasAggregation";
+import { hasFilters, HasFilters } from "./mixins/hasFilters";
 
-export const SimpleMeasureDefinitionBuilder = (qualifierString: string) =>
+interface SimpleMeasureDefinitionBuilderValue {
+    computeRatio: boolean;
+    asRatio: () => this;
+    build: () => AFM.ISimpleMeasureDefinition;
+}
+
+export const SimpleMeasureDefinitionBuilder = (
+    qualifierString: string
+): SimpleMeasureDefinitionBuilderValue & HasFilters & HasAggregation =>
     hasFilters(
         hasAggregation({
             computeRatio: false,
@@ -12,15 +20,15 @@ export const SimpleMeasureDefinitionBuilder = (qualifierString: string) =>
                 this.computeRatio = true;
                 return this;
             },
-            build(): AFM.ISimpleMeasureDefinition {
+            build() {
                 return {
                     measure: {
                         item: getQualifierObject(qualifierString),
                         aggregation: this.aggregation,
                         filters: this.filters,
-                        computeRatio: this.computeRatio,
-                    },
+                        computeRatio: this.computeRatio
+                    }
                 };
-            },
-        }),
+            }
+        })
     );

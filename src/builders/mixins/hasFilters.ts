@@ -2,7 +2,7 @@ import { AFM } from "@gooddata/typings";
 
 import { getQualifierObject } from "../utils";
 
-interface HasFilters {
+export interface HasFilters {
     filters: AFM.FilterItem[];
     withPositiveAttributeFilter: (
         qualifierString: string,
