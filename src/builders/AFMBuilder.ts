@@ -2,7 +2,13 @@ import { AFM } from "@gooddata/typings";
 
 import { getQualifierObject } from "./utils";
 
-export class AFMBuilder implements AFM.IExecution {
+export const AFMBuilder = {
+    measure(identifier: string) {
+        return new SimpleMeasureBuilder(identifier, new ExecutionBuilder());
+    }
+};
+
+class ExecutionBuilder implements AFM.IExecution {
     execution: AFM.IExecution["execution"] = {
         afm: {}
     };
@@ -12,8 +18,8 @@ export class AFMBuilder implements AFM.IExecution {
     };
 }
 
-class SimpleMeasureBuilder extends AFMBuilder {
-    constructor(identifier: string, parent: AFMBuilder) {
+class SimpleMeasureBuilder extends ExecutionBuilder {
+    constructor(identifier: string, parent: ExecutionBuilder) {
         super();
         this.execution = parent.execution;
         if (!this.execution.afm.measures) {

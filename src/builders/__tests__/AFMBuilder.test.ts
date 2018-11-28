@@ -5,8 +5,7 @@ import { AFMBuilder } from "../AFMBuilder";
 describe("AFMBuilder", () => {
     describe("measures", () => {
         it("TC: Two simple measures with formats and aliases", () => {
-            const actual = new AFMBuilder()
-                .measure("abcdefghi")
+            const actual = AFMBuilder.measure("abcdefghi")
                 .alias("My First Measure")
                 .format("0.00")
                 .measure("/gdc/md/abcd/obj/123")
