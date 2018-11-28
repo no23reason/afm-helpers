@@ -8,48 +8,44 @@ export class AFMBuilder implements AFM.IExecution {
     };
 
     measure = (identifier: string) => {
-        if (!this.execution.afm.measures) {
-            this.execution.afm.measures = [];
-        }
-
-        const measure = new SimpleMeasureBuilder(identifier, this);
-        this.execution.afm.measures.push(measure);
-        return measure;
+        return new SimpleMeasureBuilder(identifier, this);
     };
 }
 
-class SimpleMeasureBuilder implements AFM.IMeasure {
+class SimpleMeasureBuilder extends AFMBuilder {
     constructor(identifier: string, parent: AFMBuilder) {
-        this.definition = {
-            measure: {
-                item: getQualifierObject(identifier)
+        super();
+        this.execution = parent.execution;
+        if (!this.execution.afm.measures) {
+            this.execution.afm.measures = [];
+        }
+        const measure: AFM.IMeasure = {
+            localIdentifier: `m${this.execution.afm.measures.length + 1}`, // simple automatic localIdentifier generation
+            definition: {
+                measure: {
+                    item: getQualifierObject(identifier)
+                }
             }
         };
-        this.measure = parent.measure;
-        this.done = () => parent;
-        // simple automatic localIdentifier generation
-        this.localIdentifier = `m${parent.execution.afm.measures.length + 1}`;
-    }
-    // escape hatches to allow chaining to parent
-    measure: AFMBuilder["measure"];
-    // we need to call this method in the end to switch from chaining of Measure builder to chaining of AFMBuilder
-    done: () => AFMBuilder;
 
-    // AFM.IMeasure members and setter methods
-    definition: AFM.ISimpleMeasureDefinition;
-    localIdentifier = "";
-    withLocalIdentifier = (identifier: string) => {
-        this.localIdentifier = identifier;
+        this.execution.afm.measures.push(measure);
+    }
+
+    getMeasure = () =>
+        this.execution.afm.measures[this.execution.afm.measures.length - 1];
+
+    localIdentifier = (value: string) => {
+        this.getMeasure().localIdentifier = value;
         return this;
     };
-    alias = undefined;
-    withAlias = (alias: string) => {
-        this.alias = alias;
+
+    alias = (value: string) => {
+        this.getMeasure().alias = value;
         return this;
     };
-    format = undefined;
-    withFormat = (format: string) => {
-        this.format = format;
+
+    format = (value: string) => {
+        this.getMeasure().format = value;
         return this;
     };
 }

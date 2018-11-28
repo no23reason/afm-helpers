@@ -7,12 +7,11 @@ describe("AFMBuilder", () => {
         it("TC: Two simple measures with formats and aliases", () => {
             const actual = new AFMBuilder()
                 .measure("abcdefghi")
-                .withAlias("My First Measure")
-                .withFormat("0.00")
+                .alias("My First Measure")
+                .format("0.00")
                 .measure("/gdc/md/abcd/obj/123")
-                .withFormat("#,##")
-                .withAlias("My Other Measure")
-                .done();
+                .format("#,##")
+                .alias("My Other Measure");
 
             const expected = {
                 execution: {
