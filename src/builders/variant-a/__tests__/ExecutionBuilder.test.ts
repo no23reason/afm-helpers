@@ -14,14 +14,43 @@ describe("ExecutionBuilder from variant A", () => {
                     afm: {
                         measures: [
                             {
-                                localIdentifier: "foo",
+                                localIdentifier: "bar",
                                 definition: {
                                     measure: {
                                         aggregation: undefined,
                                         computeRatio: false,
                                         filters: [],
                                         item: {
-                                            identifier: "bar"
+                                            identifier: "foo"
+                                        }
+                                    }
+                                },
+                                alias: undefined,
+                                format: undefined
+                            }
+                        ]
+                    }
+                }
+            };
+            expect(actual).toEqual(expected);
+        });
+        it("creates a simple measure with default localIdentifier", () => {
+            const actual = new ExecutionBuilder()
+                .addSimpleMeasure("foo")
+                .build();
+            const expected: AFM.IExecution = {
+                execution: {
+                    afm: {
+                        measures: [
+                            {
+                                localIdentifier: "m1",
+                                definition: {
+                                    measure: {
+                                        aggregation: undefined,
+                                        computeRatio: false,
+                                        filters: [],
+                                        item: {
+                                            identifier: "foo"
                                         }
                                     }
                                 },
@@ -53,7 +82,7 @@ describe("ExecutionBuilder from variant A", () => {
                     afm: {
                         measures: [
                             {
-                                localIdentifier: "foo",
+                                localIdentifier: "bar",
                                 definition: {
                                     measure: {
                                         aggregation: "count",
@@ -72,7 +101,7 @@ describe("ExecutionBuilder from variant A", () => {
                                             }
                                         ],
                                         item: {
-                                            identifier: "bar"
+                                            identifier: "foo"
                                         }
                                     }
                                 },

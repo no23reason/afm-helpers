@@ -6,8 +6,8 @@ export class ExecutionBuilder {
     private measures: AFM.IMeasure[] = [];
 
     addSimpleMeasure = (
-        localIdentifier: string,
         qualifierString: string,
+        localIdentifier: string = `m${this.measures.length + 1}`,
         customisation: (
             builder: SimpleMeasureBuilder
         ) => SimpleMeasureBuilder = b => b
