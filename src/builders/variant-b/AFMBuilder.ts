@@ -1,6 +1,6 @@
 import { AFM } from "@gooddata/typings";
 
-import { getQualifierObject } from "./utils";
+import { getQualifierObject } from "../utils";
 
 export const AFMBuilder = {
     measure(identifier: string) {
